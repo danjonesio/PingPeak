@@ -12,13 +12,14 @@ function colour(status) {
   
   async function render() {
     try {
-      const { latestResults = [], lastChecked = 0 } =
-        await chrome.runtime.sendMessage({ type: 'getStatus' }) || {};
+      // Get status from background script
+      const response = await chrome.runtime.sendMessage({ type: 'getStatus' });
+      const { latestResults = [], lastChecked = 0 } = response || {};
   
       const list = document.getElementById('list');
       list.innerHTML = '';
   
-      if (!latestResults.length) {
+      if (!latestResults || !latestResults.length) {
         document.getElementById('none').hidden = false;
         document.getElementById('time').textContent = '';
         return;
@@ -26,25 +27,33 @@ function colour(status) {
   
       document.getElementById('none').hidden = true;
   
-      latestResults.forEach(r => {
-        const row = document.createElement('div'); row.className = 'row';
+      latestResults.forEach(result => {
+        const row = document.createElement('div'); 
+        row.className = 'row';
   
-        const dot = document.createElement('span'); dot.className = 'dot';
-        dot.style.background = colour(r.status);
+        const dot = document.createElement('span'); 
+        dot.className = 'dot';
+        dot.style.background = colour(result.status);
   
-        const url = document.createElement('span'); url.className = 'url';
-        url.textContent = r.url.replace(/^https?:\/\//, '');
+        const siteName = document.createElement('span'); 
+        siteName.className = 'url';
+        siteName.textContent = result.name;
+        siteName.title = result.url; // Show full URL on hover
   
-        const ms  = document.createElement('span'); ms.className = 'ms';
-        ms.textContent = fmtMs(r.ms);
+        const ms = document.createElement('span'); 
+        ms.className = 'ms';
+        ms.textContent = fmtMs(result.ms);
   
-        row.append(dot, url, ms);
+        row.append(dot, siteName, ms);
         list.appendChild(row);
       });
   
-      const t = new Date(lastChecked);
-      document.getElementById('time').textContent =
-        `Last check ${t.toLocaleTimeString()}`;
+      if (lastChecked) {
+        const t = new Date(lastChecked);
+        document.getElementById('time').textContent = `Last check ${t.toLocaleTimeString()}`;
+      } else {
+        document.getElementById('time').textContent = '';
+      }
     } catch (error) {
       console.error('Failed to get status:', error);
       document.getElementById('none').hidden = false;

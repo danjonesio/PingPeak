@@ -4,19 +4,198 @@
   <meta charset="utf-8">
   <title>Ping Peak – Settings</title>
   <style>
-    body { font: 14px/1.4 system-ui; padding: 1rem; }
-    input { width: 100%; margin-bottom: .5rem; }
-    #save { padding: .5rem 1rem; }
-    .hint { font-size: 12px; color: #666; }
+    body { 
+      font: 14px/1.4 system-ui; 
+      padding: 2rem;
+      max-width: 800px;
+      margin: 0 auto;
+      background: #f5f5f5;
+    }
+    .card {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      margin-bottom: 1.5rem;
+    }
+    h1 { 
+      color: #2196F3;
+      font-size: 1.8rem;
+      margin-top: 0;
+    }
+    h2 {
+      color: #424242;
+      font-size: 1.2rem;
+      margin-top: 0;
+    }
+    .site-config {
+      background: #f8f9fa;
+      border-radius: 4px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .site-row {
+      display: grid;
+      gap: 1.5rem;
+    }
+    .site-inputs {
+      display: grid;
+      gap: 0.75rem;
+    }
+    .name-input,
+    .url-input {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+    .site-settings {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
+    .site-settings label {
+      display: grid;
+      gap: 0.3rem;
+      color: #666;
+      font-size: 0.9rem;
+    }
+    .site-settings input {
+      width: 70px;
+      padding: 0.4rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+    .remove-site {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      color: #dc3545;
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 0;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+    .remove-site:hover {
+      background: rgba(220, 53, 69, 0.1);
+    }
+    .site-config {
+      position: relative;
+    }
+    .name-input::placeholder {
+      color: #999;
+    }
+    .url-input::placeholder {
+      color: #999;
+    }
+    .site-settings {
+      margin-top: 0.5rem;
+      display: grid;
+      gap: 0.5rem;
+    }
+    .site-settings label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .site-settings input {
+      width: 70px;
+      padding: 0.3rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+    .remove-site {
+      background: none;
+      border: none;
+      color: #dc3545;
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 0 0.5rem;
+    }
+    .remove-site:hover {
+      color: #bd2130;
+    }
+    input:focus {
+      outline: none;
+      border-color: #2196F3;
+      box-shadow: 0 0 0 2px rgba(33,150,243,0.1);
+    }
+    .interval-settings {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .interval-input {
+      width: 120px;
+    }
+    label {
+      display: block;
+      margin-bottom: 0.3rem;
+      color: #666;
+    }
+    .actions {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    #save, #add-site { 
+      padding: 0.7rem 1.5rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.2s;
+    }
+    #save {
+      background: #2196F3;
+      color: white;
+      border: none;
+    }
+    #save:hover {
+      background: #1976D2;
+    }
+    #add-site {
+      background: #fff;
+      color: #2196F3;
+      border: 1px solid #2196F3;
+    }
+    #add-site:hover {
+      background: #f0f7ff;
+    }
+    #add-site:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    .hint { 
+      font-size: 12px; 
+      color: #666;
+      margin-top: 0.5rem;
+    }
   </style>
 </head>
 <body>
-  <h1>Monitored sites (max 5)</h1>
-  <form id="form">
-    <div id="inputs"></div>
-    <button id="save" type="submit">Save</button>
-    <p class="hint">Enter full URLs, one per line or field.</p>
-  </form>
+  <div class="card">
+    <h1>Monitored Sites</h1>
+    <p class="hint">Enter full URLs to monitor (maximum 5 sites)</p>
+    <form id="form">
+      <div id="site-configs"></div>
+      <div class="actions">
+        <button type="button" id="add-site" class="secondary">+ Add Site</button>
+        <button id="save" type="submit">Save Changes</button>
+      </div>
+    </form>
+  </div>
   <script src="options.js"></script>
 </body>
 </html>
