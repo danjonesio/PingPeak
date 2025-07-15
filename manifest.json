@@ -1,0 +1,32 @@
+{
+    "manifest_version": 3,
+    "name": "Ping Peak",
+    "description": "Shows a green/amber/red badge if your monitored sites are up, flaky, or down.",
+    "version": "1.0",
+    "permissions": [
+      "alarms",
+      "storage"
+    ],
+    "host_permissions": ["<all_urls>"],  
+    "icons": {
+      "16": "icons/16/default.png",
+      "32": "icons/32/default.png",
+      "48": "icons/48/default.png",
+      "128": "icons/128/default.png"
+    },
+    "background": {
+      "service_worker": "background.js",
+      "type": "module"
+    },
+    "action": {
+      "default_title": "Ping Peak",
+      "default_icon": {
+        "16": "icons/16/default.png",
+        "32": "icons/32/default.png",
+        "48": "icons/48/default.png",
+        "128": "icons/128/default.png"
+      },
+        "default_popup": "popup.html"
+    },
+    "options_page": "options.html"
+  }

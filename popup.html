@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Ping Peak status</title>
+<style>
+  body { font: 14px/1.4 system-ui; margin: 0; padding: .8rem .9rem; width: 260px; }
+  .row { display: flex; align-items: center; margin-bottom: .4rem; }
+  .dot { width: .8rem; height: .8rem; border-radius: 50%; margin-right: .5rem; }
+  .url { flex: 1 1 auto; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .ms  { font-variant-numeric: tabular-nums; margin-left: .6rem; }
+  #none { color: #666; }
+  footer { font-size: 11px; color: #666; text-align: right; margin-top: .6rem; }
+</style>
+</head>
+<body>
+  <div id="list"></div>
+  <div id="none" hidden>No data yet…</div>
+  <footer id="time"></footer>
+  <script src="popup.js"></script>
+</body>
+</html>
